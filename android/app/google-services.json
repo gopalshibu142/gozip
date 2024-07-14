@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "672992345447",
+    "project_id": "gozip-app",
+    "storage_bucket": "gozip-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672992345447:android:1335764562ae191b6403c2",
+        "android_client_info": {
+          "package_name": "com.example.gozip"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlFA183pPzPLpNSp6xdwMRP0I-rCwQdNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
