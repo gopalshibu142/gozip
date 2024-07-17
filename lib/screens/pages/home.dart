@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gozip/database/auth.dart';
+import 'package:gozip/global.dart';
+import 'package:gozip/screens/pages/people.dart';
 import 'package:provider/provider.dart';
 import '../../providers/user_provider.dart';
 import '../../providers/message_provider.dart';
+
+import 'package:circle_nav_bar/circle_nav_bar.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -23,123 +28,51 @@ class _HomePageState extends State<HomePage> {
       _selectedIndex = index;
     });
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: theme.background,
+      appBar: AppBar(
+        backgroundColor: theme.black,
+        title: Text('Gozip',
+            style:
+                GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold)),
+        actions: [
+          IconButton(icon: Icon(Icons.search), onPressed: () {}),
+          IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),
+        ],
+      ),
       body: Center(
         child: _pages.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Chats',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.call),
-            label: 'Calls',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
+      bottomNavigationBar: CircleNavBar(
+        activeIndex: _selectedIndex,
+        activeIcons: [
+        Icon(Icons.chat_bubble, color: theme.white),
+        Icon(Icons.call, color: theme.white),
+        Icon(Icons.person, color: theme.white),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
+        inactiveIcons: [
+        Icon(Icons.chat_bubble, color: theme.white),
+        Icon(Icons.call, color: theme.white),
+        Icon(Icons.person, color: theme.white),
+        ],
+        height: 60  ,
+        circleWidth: 60,
+        color: theme.black,
         onTap: _onItemTapped,
-      ),
+      )
     );
   }
 }
 
-class ChatsListPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context);
-    final messageProvider = Provider.of<MessageProvider>(context);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Chat', style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold)),
-        actions: [
-          IconButton(icon: Icon(Icons.search), onPressed: () {}),
-        ],
-      ),
-      body: Column(
-        children: [
-          Container(
-            height: 100,
-            padding: EdgeInsets.all(8),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: userProvider.users.length,
-              itemBuilder: (context, index) {
-                final user = userProvider.users[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundImage: NetworkImage('https://picsum.photos/200'),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        "user.name.split(' ')[0]",
-                        style: GoogleFonts.poppins(fontSize: 14),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: messageProvider.messages.length,
-              itemBuilder: (context, index) {
-                final message = messageProvider.messages[index];
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage("https://picsum.photos/200"),
-                  ),
-                  title: Text("message.sender.name", style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold)),
-                  subtitle: Text("message.time", style: GoogleFonts.poppins(fontSize: 14)),
-                  trailing: IconButton(
-                    icon: Icon(Icons.camera_alt, color: Colors.white),
-                    onPressed: () {},
-                  ),
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              icon: Icon(Icons.edit, color: Colors.white),
-              label: Text('New Message', style: GoogleFonts.poppins(fontSize: 16, color: Colors.white)),
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.blue,
-                padding: EdgeInsets.symmetric(vertical: 14, horizontal: 24),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class CallsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Calls', style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold)),
-      ),
+      backgroundColor: theme.background,
       body: Center(
         child: Text('Calls Page', style: GoogleFonts.poppins(fontSize: 18)),
       ),
@@ -151,12 +84,39 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile', style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold)),
-      ),
-      body: Center(
-        child: Text('Profile Page', style: GoogleFonts.poppins(fontSize: 18)),
-      ),
+    backgroundColor: theme.background,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 100,
+              backgroundColor: theme.mid,
+              child: Icon(Icons.person, size: 50, color: theme.white),
+            ),
+            SizedBox(height: 10),
+            Text('Username', style: GoogleFonts.poppins(fontSize: 24)),
+            SizedBox(height: 10),
+            Text('Status', style: GoogleFonts.poppins(fontSize: 18)),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('Edit Profile'),
+            ),
+            TextButton(
+              onPressed: () {
+                AuthService auth = AuthService();
+                auth.signOut();
+                Navigator.pushNamed(context, '/login');
+              },
+              child: Text('Logout'),
+            ),
+          ],
+        ),
+      )
     );
   }
 }

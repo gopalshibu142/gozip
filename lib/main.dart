@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark(),
-      home: HomePage(),
+     // home: HomePage(),
       routes: {
       '/login': (context) => Login(),
         //'/register': (context) => RegisterPage(),

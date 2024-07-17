@@ -39,6 +39,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   }
   Future forgetPassword(email) async {
     //forget password function
+    auth.resetPassword(email);
   }
 
 
